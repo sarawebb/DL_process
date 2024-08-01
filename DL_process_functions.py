@@ -1,6 +1,5 @@
 
 import numpy as np
-import nibabel as nib
 import os
 import cv2
 import csv
@@ -137,4 +136,22 @@ def run_sbatch_scripts(directory):
             subprocess.run(command, shell=True, check=True)
 
 
+
+# Function to map lesion indices to tumor types
+def map_lesion_to_tumor_type(lesion_idxs, dl_info):
+    print('In function')
+    tumor_types = []
+    for idx in lesion_idxs:
+        print('------------')
+        print(idx)
+        print('------------')
+        mask = dl_info.loc[idx]
+        #print(len(mask))
+        
+        #tumor_type = dl_info.loc[dl_info['lesion_idx'] == idx, 'tumor_type'].values
+        #if len(tumor_type) > 0:
+         #   tumor_types.append(tumor_type[0])
+        #else:
+         #   tumor_types.append(None)  # or some default value
+    return tumor_types
 
