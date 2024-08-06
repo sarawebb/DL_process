@@ -155,3 +155,22 @@ def map_lesion_to_tumor_type(lesion_idxs, dl_info):
          #   tumor_types.append(None)  # or some default value
     return tumor_types
 
+def move_files(file_list, source_dir, destination_dir):
+    # Create the destination directory if it doesn't exist
+    if not os.path.exists(destination_dir):
+        os.makedirs(destination_dir)
+
+    # Walk through the source directory and its subdirectories
+    for root, dirs, files in os.walk(source_dir):
+        for file in files:
+            if file in file_list:
+                print(file)
+                # Construct the full path of the source file
+                source_path = os.path.join(root, file)
+                print(source_path)
+                # Construct the full path of the destination file
+                destination_path = os.path.join(destination_dir, file)
+                # Move the file
+                os.system('mv ' + source_path + ' '+ destination_path)
+                print(f"Moved {file} to {destination_path}")
+

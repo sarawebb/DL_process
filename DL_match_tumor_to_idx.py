@@ -22,8 +22,7 @@ print(len(test_lesion_idxs))
 
 # Map lesion indices to tumor types
 train_tumor_types = map_lesion_to_tumor_type(train_lesion_idxs, dl_info)
-
-'''val_tumor_types = map_lesion_to_tumor_type(val_lesion_idxs, dl_info)
+val_tumor_types = map_lesion_to_tumor_type(val_lesion_idxs, dl_info)
 test_tumor_types = map_lesion_to_tumor_type(test_lesion_idxs, dl_info)
 
 # Create DataFrames for each set
