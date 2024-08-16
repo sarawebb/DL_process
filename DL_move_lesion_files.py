@@ -12,7 +12,7 @@ df = pd.read_csv(csv_file_path)
 file_list = df.iloc[:, 0].tolist()
 
 # Define the source and destination directories
-source_directory = "/fred/oz141/public_datasets/DeepLesion/named_images"  # Replace with your source directory path
+source_directory = "/fred/oz141/public_datasets/DeepLesion/named_images/"  # Replace with your source directory path
 destination_directory = "/fred/oz141/public_datasets/DeepLesion/lesion_images"  # Replace with your destination directory path
 
 # Call the function to move the files
