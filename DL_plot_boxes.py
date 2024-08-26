@@ -1,6 +1,5 @@
 from DL_process_functions import *
 import numpy as np
-import nibabel as nib
 import matplotlib.pyplot as plt
 import sys
 import pandas as pd

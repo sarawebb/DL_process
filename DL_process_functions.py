@@ -7,6 +7,8 @@ import csv
 import glob
 import matplotlib.pyplot as plt
 import pandas as pd
+import random
+import shutil
 from scipy import stats
 
 def rename_and_move_images(folder_path, output_folder):
@@ -528,3 +530,54 @@ def process_and_save_image(image, output_path, filename, window1, window2):
 # process_and_save_image('input_image.png', 'output_image.png', 40, 400)
 
 
+def move_random_files(source_dir, destination_dir, num_files):
+    # Ensure the destination directory exists
+    print('source' + source_dir)
+    print('out' + destination_dir)
+    if not os.path.exists(destination_dir):
+        os.makedirs(destination_dir)
+    
+    all_files = []
+    
+    # Traverse all subdirectories in the source directory
+    for root, dirs, files in os.walk(source_dir):
+        for file in files:
+            file_path = os.path.join(root, file)
+            all_files.append(file_path)
+    
+    # Randomly select 'num_files' from all_files
+    files_to_move = random.sample(all_files, min(num_files, len(all_files)))
+    
+    # Move the selected files
+    for file_path in files_to_move:
+        destination_path = os.path.join(destination_dir, os.path.basename(file_path))
+        shutil.move(file_path, destination_path)
+        print(f"Moved: {file_path}")
+
+    print(f"Moved {len(files_to_move)} files from {source_dir} and its subdirectories to {destination_dir}")
+
+
+def get_normalized_box_properties(bounding_box, image_size=(512, 512)):
+    """
+    Calculate the normalized center coordinates, width, and height of a bounding box.
+    
+    Args:
+    bounding_box (list): A list of four values [x1, y1, x2, y2] representing
+                         the top-left and bottom-right coordinates of the box.
+    image_size (tuple): The size of the image (width, height). Default is (512, 512).
+    
+    Returns:
+    tuple: (normalized_center_x, normalized_center_y, normalized_width, normalized_height)
+    """
+    x1, y1, x2, y2 = bounding_box
+    img_width, img_height = image_size
+    
+    # Calculate center coordinates and normalize
+    center_x = (x1 + x2) / (2 * img_width)
+    center_y = (y1 + y2) / (2 * img_height)
+    
+    # Calculate width and height and normalize
+    box_width = (x2 - x1) / img_width
+    box_height = (y2 - y1) / img_height
+    
+    return center_x, center_y, box_width, box_height
